@@ -103,6 +103,20 @@ The dashboard opens automatically in the default browser.
 
 ---
 
+## Deployment (Hugging Face Spaces)
+
+1. Create a new Space at huggingface.co/new-space with SDK **Streamlit**.
+2. Add it as a git remote and push this repo's contents:
+   ```bash
+   git remote add space https://huggingface.co/spaces/<your-username>/<space-name>
+   git push space main
+   ```
+3. In the Space's **Settings -> Repository secrets**, add: `ALPACA_API_KEY`, `ALPACA_SECRET_KEY`, `ALPACA_BASE_URL`, `MONGODB_URI`, `TRANSFORMERS_VERBOSITY`. Never commit `.env` -- it stays git-ignored.
+4. In MongoDB Atlas -> Network Access, allow access from `0.0.0.0/0`, since Spaces containers don't have a static IP.
+5. The Space rebuilds automatically on push and serves `Home.py` per the `app_file` key in the frontmatter at the top of this file.
+
+---
+
 ## Project Structure
 
 ```

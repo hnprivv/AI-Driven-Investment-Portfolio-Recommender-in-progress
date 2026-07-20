@@ -535,6 +535,13 @@ with c4:
         use_container_width=True,
     )
 
+st.caption(
+    "These figures reflect realized 1-year performance of "
+    + ("your entered holdings" if user_metrics_available else "the static cluster benchmark")
+    + ". They may differ from the *optimized* allocation and expected return/volatility shown on the "
+    "AI Recommendations page, which uses Modern Portfolio Theory rather than fixed cluster weights."
+)
+
 st.markdown("---")
 
 # ══════════════════════════════════════════════════════

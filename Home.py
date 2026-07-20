@@ -38,7 +38,7 @@ st.markdown("""
 <div class='custom-title-box'>
     <h1>AI-Driven Investment Portfolio Recommender</h1>
 </div>
-<p style='text-align:center; color:#A1A1AA;'>Empowering investors with data-driven, adaptive portfolio management</p>
+<p style='text-align:center; color:#A1A1AA;'>Empowering investors with data-driven, adaptive portfolio recommendations.</p>
 <br>
 """, unsafe_allow_html=True)
 
