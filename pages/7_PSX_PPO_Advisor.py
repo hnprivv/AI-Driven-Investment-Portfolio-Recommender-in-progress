@@ -215,9 +215,9 @@ def _risk_bar_html(risk: int) -> str:
             c = "#4CAF50" if i <= 3 else "#FF9800" if i <= 6 else "#FF3D00"
         else:
             c = "rgba(255,255,255,0.1)"
-        pips += (f"<div style='width:16px;height:8px;border-radius:3px;"
-                 f"background:{c};margin-right:3px;display:inline-block;'></div>")
-    return (f"<div style='display:flex;align-items:center;flex-wrap:nowrap;margin:4px 0;'>{pips}</div>"
+        pips += (f"<div style='flex:1;min-width:0;height:8px;border-radius:3px;"
+                 f"background:{c};margin-right:2px;'></div>")
+    return (f"<div style='display:flex;align-items:center;width:100%;margin:4px 0;'>{pips}</div>"
             f"<div style='color:#A1A1AA;font-size:11px;margin-top:2px;'>{risk} / 10</div>")
 
 def _pill(text, color="#A1A1AA"):

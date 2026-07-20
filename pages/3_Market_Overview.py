@@ -170,7 +170,7 @@ def fetch_latest_price(symbol: str, is_crypto: bool = False) -> float | None:
         return None
     try:
         if is_crypto:
-            url    = "https://data.alpaca.markets/v1beta3/crypto/us/trades/latest"
+            url    = "https://data.alpaca.markets/v1beta3/crypto/us/latest/trades"
             params = {"symbols": symbol}
             resp   = requests.get(url, headers=headers, params=params, timeout=5)
             resp.raise_for_status()
