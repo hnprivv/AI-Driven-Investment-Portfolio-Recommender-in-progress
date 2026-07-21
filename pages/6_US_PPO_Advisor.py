@@ -277,7 +277,7 @@ with left_col:
     st.markdown("<h3 style='color:#F59E0B;'>👤 Your Risk Profile</h3>", unsafe_allow_html=True)
 
     risk_val = int(profile.get("risk_tolerance", 5))
-    cluster  = int(profile.get("cluster", 1) or 1)
+    cluster  = int(profile["cluster"]) if profile.get("cluster") is not None else 1
     cl_label, cl_color, cl_rgb, cl_desc = _CLUSTER_LABELS.get(
         cluster, ("Unknown", "#A1A1AA", "161,161,170", "No profile description available.")
     )
@@ -737,6 +737,7 @@ if os.path.exists(TRAIN_LOG_PATH):
                             config={"displayModeBar": False})
 
 # ── Footer ────────────────────────────────────────────────────────────────────
+st.markdown("<br>", unsafe_allow_html=True)
 st.markdown(
     "<p style='color:#A1A1AA; font-size:12px;'>"
     "PPO agent trained on historical data sourced via the <b>Alpaca Market Data API</b> (IEX feed, 15-min delayed).  "

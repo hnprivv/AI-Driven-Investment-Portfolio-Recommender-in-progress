@@ -244,7 +244,7 @@ def encode_user_profile(profile: dict) -> np.ndarray:
     """
     risk = float(profile.get("risk_tolerance", 5)) / 10.0
 
-    cluster = int(profile.get("cluster", 1) or 1)
+    cluster = int(profile["cluster"]) if profile.get("cluster") is not None else 1
     cluster = max(0, min(3, cluster))
     one_hot = np.zeros(4, dtype=np.float32)
     one_hot[cluster] = 1.0
