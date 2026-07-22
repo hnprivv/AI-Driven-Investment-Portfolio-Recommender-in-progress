@@ -181,6 +181,7 @@ export default function Signup({ onLogin }) {
           {submitting ? "Creating account…" : "Create Account & Analyze Profile"}
         </button>
 
+        <div className="auth-divider"><span>◆</span></div>
         <p className="subtitle switch-auth">
           Already have an account? <Link to="/login">Log in</Link>
         </p>

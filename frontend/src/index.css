@@ -23,9 +23,25 @@ body {
 .auth-page {
   min-height: 100vh;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
-  padding: 60px 16px;
+  padding: 40px 16px;
+  background-image:
+    radial-gradient(ellipse 900px 500px at 50% -10%, rgba(217, 119, 6, 0.16), transparent 70%),
+    radial-gradient(rgba(217, 119, 6, 0.07) 1px, transparent 1px);
+  background-size: auto, 28px 28px;
+  background-repeat: no-repeat, repeat;
+}
+
+@keyframes auth-card-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .auth-card {
@@ -37,11 +53,17 @@ body {
   display: flex;
   flex-direction: column;
   gap: 6px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35), 0 0 40px rgba(217, 119, 6, 0.08);
+  animation: auth-card-reveal 0.5s ease-out both;
 }
 
 .auth-card h1 {
-  color: var(--secondary);
   margin: 0 0 4px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary-light));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
 }
 
 .auth-card h3 {
@@ -91,6 +113,40 @@ body {
 .switch-auth a {
   color: var(--secondary);
   font-weight: 600;
+}
+
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--primary));
+}
+
+.auth-divider::after {
+  background: linear-gradient(90deg, var(--primary), transparent);
+}
+
+.auth-divider span {
+  color: var(--primary);
+  font-size: 10px;
+}
+
+.auth-card button[type="submit"] {
+  box-shadow: 0 4px 18px rgba(217, 119, 6, 0.3);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.auth-card button[type="submit"]:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 26px rgba(217, 119, 6, 0.45);
 }
 
 .custom-select {
@@ -275,6 +331,17 @@ select {
   margin-top: 4px;
   font-family: inherit;
   font-size: 14px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):focus,
+textarea:focus,
+select:focus,
+.custom-select-trigger:focus-visible,
+.custom-select-trigger.open {
+  outline: none;
+  border-color: rgba(217, 119, 6, 0.6);
+  box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.18);
 }
 
 textarea {

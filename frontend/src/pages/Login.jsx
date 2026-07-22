@@ -51,6 +51,7 @@ export default function Login({ onLogin }) {
           {submitting ? "Signing in…" : "Log In"}
         </button>
 
+        <div className="auth-divider"><span>◆</span></div>
         <p className="subtitle switch-auth">
           Don't have an account? <Link to="/signup">Sign up</Link>
         </p>
