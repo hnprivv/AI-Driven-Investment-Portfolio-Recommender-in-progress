@@ -25,7 +25,7 @@ export default function MarketOverview() {
       <div className="page-shell-inner">
         <h1>Market Overview</h1>
         <p className="subtitle">
-          Live candlestick charts powered by Alpaca Market Data. Advisory view only.
+          Live candlestick charts powered by Alpaca Markets & Yahoo Finance Data. Advisory view only.
         </p>
 
         <div className="market-header-row">
@@ -44,7 +44,7 @@ export default function MarketOverview() {
               )}
             </div>
           )}
-          <button className="market-refresh-btn" onClick={handleRefresh} disabled={refreshing}>
+          <button className="refresh-btn" onClick={handleRefresh} disabled={refreshing}>
             {refreshing ? "Refreshing…" : "⟳ Refresh"}
           </button>
         </div>

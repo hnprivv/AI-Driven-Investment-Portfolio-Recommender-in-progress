@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import MarketOverview from "./pages/MarketOverview";
+import NewsSentiment from "./pages/NewsSentiment";
 import Recommendations from "./pages/Recommendations";
 import Settings from "./pages/Settings";
 
@@ -38,6 +39,7 @@ export default function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/recommendations" element={<Recommendations />} />
         <Route path="/market" element={<MarketOverview />} />
+        <Route path="/news" element={<NewsSentiment />} />
         <Route path="/settings" element={<Settings />} />
       </Route>
     </Routes>

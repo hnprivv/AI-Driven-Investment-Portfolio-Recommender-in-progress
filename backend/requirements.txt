@@ -13,3 +13,6 @@ plotly
 kaleido
 fpdf2
 yfinance
+torch
+transformers
+feedparser

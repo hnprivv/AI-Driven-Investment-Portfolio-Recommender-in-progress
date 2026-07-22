@@ -90,6 +90,22 @@ export function getPsxCandles(symbol, limit) {
   return request(`/market/psx/candles?symbol=${encodeURIComponent(symbol)}&limit=${limit}`);
 }
 
+export function getMarketNews(limit) {
+  return request(`/news/market?limit=${limit}`);
+}
+
+export function getTickerNews(symbol, limit) {
+  return request(`/news/ticker?symbol=${encodeURIComponent(symbol)}&limit=${limit}`);
+}
+
+export function getPsxMarketNews(limit) {
+  return request(`/news/psx/market?limit=${limit}`);
+}
+
+export function getPsxCompanyNews(query, limit) {
+  return request(`/news/psx/company?query=${encodeURIComponent(query)}&limit=${limit}`);
+}
+
 export function saveHoldings(holdingsText) {
   return request("/users/me/holdings", {
     method: "PUT",

@@ -38,3 +38,14 @@ def get_current_username(aiprs_session: str | None = Cookie(default=None)) -> st
     if aiprs_session is None:
         raise HTTPException(status_code=401, detail="Not authenticated")
     return decode_session_token(aiprs_session)
+
+
+def get_current_username_optional(aiprs_session: str | None = Cookie(default=None)) -> str:
+    """Like get_current_username, but returns "Guest" instead of raising when
+    there's no session — for pages that work for logged-out visitors too."""
+    if aiprs_session is None:
+        return "Guest"
+    try:
+        return decode_session_token(aiprs_session)
+    except HTTPException:
+        return "Guest"

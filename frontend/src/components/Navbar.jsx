@@ -8,6 +8,7 @@ const NAV_LINKS = [
   { label: "Dashboard", path: "/dashboard" },
   { label: "AI Recommendations", path: "/recommendations" },
   { label: "Market", path: "/market" },
+  { label: "News", path: "/news" },
   { label: "Settings", path: "/settings" },
 ];
 

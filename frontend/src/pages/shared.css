@@ -166,3 +166,106 @@
 .info-box b {
   color: var(--secondary-light);
 }
+
+.page-tabs,
+.market-tabs {
+  display: flex;
+  gap: 6px;
+  margin-top: 24px;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.page-tab,
+.market-tab {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted);
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  margin: 0;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.page-tab:hover,
+.market-tab:hover {
+  color: var(--text);
+}
+
+.page-tab.active,
+.market-tab.active {
+  color: var(--secondary);
+  border-bottom-color: var(--secondary);
+}
+
+.page-tabs.sub,
+.market-tabs.sub {
+  margin-top: 16px;
+  border-bottom: none;
+  gap: 8px;
+}
+
+.page-tab.sub,
+.market-tab.sub {
+  padding: 6px 14px;
+  font-size: 13px;
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+}
+
+.page-tab.sub.active,
+.market-tab.sub.active {
+  color: #0B0B0F;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  border-color: transparent;
+}
+
+.pill-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 24px 0 4px;
+}
+
+.pill-btn {
+  padding: 7px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  margin: 0;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.pill-btn:hover {
+  color: var(--text);
+  border-color: rgba(217, 119, 6, 0.4);
+}
+
+.pill-btn.active {
+  color: #0B0B0F;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  border-color: transparent;
+}
+
+.refresh-btn {
+  margin: 0;
+  padding: 8px 16px;
+  font-size: 13px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--text);
+  transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.refresh-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  border-color: rgba(217, 119, 6, 0.4);
+  background: rgba(217, 119, 6, 0.1);
+}
