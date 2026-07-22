@@ -8,17 +8,6 @@
   --card-border: rgba(217, 119, 6, 0.25);
 }
 
-.reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
 * {
   box-sizing: border-box;
 }
@@ -351,9 +340,7 @@ button:disabled {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(12, 10, 0, 0.75);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: #0f0c00;
   border-bottom: 1px solid var(--card-border);
 }
 

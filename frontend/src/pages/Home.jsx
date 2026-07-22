@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import ScrollReveal from "../components/ScrollReveal";
 import DashboardPreview from "../components/DashboardPreview";
 import "./Home.css";
 
@@ -75,16 +74,11 @@ const STEPS = [
 ];
 
 export default function Home({ user, onLogout }) {
-  const ctaTarget = user ? "/dashboard" : "/signup";
-  const ctaLabel = user ? "Go to Dashboard" : "Get Started Free";
-
   return (
     <div className="home-page">
       <Navbar user={user} onLogout={onLogout} />
 
-      {/* ── Hero ─────────────────────────────────────────────────────────── */}
       <section className="hero">
-        <div className="hero-glow" />
         <div className="hero-inner">
           <div className="hero-copy">
             <div className="hero-eyebrow">AI-Powered Portfolio Recommender</div>
@@ -96,16 +90,16 @@ export default function Home({ user, onLogout }) {
               optimized portfolios that evolve with market behavior — combining reinforcement
               learning with Modern Portfolio Theory.
             </p>
-            <div className="hero-actions">
-              <Link to={ctaTarget}>
-                <button className="btn-primary" type="button">{ctaLabel}</button>
-              </Link>
-              {!user && (
+            {!user && (
+              <div className="hero-actions">
+                <Link to="/signup">
+                  <button className="btn-primary" type="button">Get Started Free</button>
+                </Link>
                 <Link to="/login">
                   <button className="btn-ghost" type="button">Log In</button>
                 </Link>
-              )}
-            </div>
+              </div>
+            )}
             <div className="hero-stats">
               <div className="stat-pill"><span className="stat-num">4</span> Risk Profiles</div>
               <div className="stat-pill"><span className="stat-num">AI</span> Powered Engine</div>
@@ -119,83 +113,62 @@ export default function Home({ user, onLogout }) {
         </div>
       </section>
 
-      <div className="section-divider"><span>◆</span></div>
-
-      {/* ── Features ─────────────────────────────────────────────────────── */}
       <section className="section">
-        <div className="section-glow left" />
-        <ScrollReveal>
-          <h2 className="section-title">Why Choose AIPRS?</h2>
-        </ScrollReveal>
+        <h2 className="section-title">Why Choose AIPRS?</h2>
         <div className="features-grid">
-          {FEATURES.map((f, i) => (
-            <ScrollReveal key={f.title} delay={i * 100} className="features-grid-item">
+          {FEATURES.map((f) => (
+            <div key={f.title} className="features-grid-item">
               <div className="feature-card">
                 <div className="feature-icon"><f.icon /></div>
                 <h3>{f.title}</h3>
                 <p>{f.desc}</p>
               </div>
-            </ScrollReveal>
+            </div>
           ))}
         </div>
       </section>
 
-      <div className="section-divider"><span>◆</span></div>
-
-      {/* ── How It Works ─────────────────────────────────────────────────── */}
       <section className="section">
-        <div className="section-glow right" />
-        <ScrollReveal>
-          <h2 className="section-title">How It Works</h2>
-        </ScrollReveal>
+        <h2 className="section-title">How It Works</h2>
         <div className="timeline">
           {STEPS.map((s, i) => (
-            <ScrollReveal key={s.title} delay={i * 80} className="timeline-item">
+            <div key={s.title} className="timeline-item">
               <div className="timeline-marker">{i + 1}</div>
               <div className="timeline-card">
-                <div className="timeline-step-title">Step {i + 1} — {s.title}</div>
+                <div className="step-title">{s.title}</div>
                 <p>{s.desc}</p>
               </div>
-            </ScrollReveal>
+            </div>
           ))}
         </div>
       </section>
 
-      <div className="section-divider"><span>◆</span></div>
-
-      {/* ── Mission ──────────────────────────────────────────────────────── */}
       <section className="section">
-        <div className="section-glow left" />
-        <ScrollReveal>
-          <blockquote className="mission-quote">
-            <p>
-              Investing shouldn't be overwhelming. AIPRS combines cutting-edge machine learning
-              with intuitive design to make intelligent investing accessible, transparent, and
-              adaptive. No jargon, no guesswork.
-            </p>
-            <p className="mission-quote-emphasis">
-              Your financial decisions should evolve as the markets do. Let AIPRS handle the
-              complexity, so you can focus on what matters — your goals.
-            </p>
-          </blockquote>
-        </ScrollReveal>
+        <h2 className="section-title">Our Mission</h2>
+        <blockquote className="mission-box">
+          <p>
+            Investing shouldn't be overwhelming. AIPRS combines cutting-edge machine learning
+            with intuitive design to make intelligent investing accessible, transparent, and
+            adaptive. No jargon, no guesswork.
+          </p>
+          <p>
+            Your financial decisions should evolve as the markets do. Let AIPRS handle the
+            complexity, so you can focus on what matters — your goals.
+          </p>
+        </blockquote>
       </section>
 
-      <div className="section-divider"><span>◆</span></div>
-
-      {/* ── Final CTA ────────────────────────────────────────────────────── */}
-      <section className="section">
-        <div className="section-glow right" />
-        <ScrollReveal>
+      {!user && (
+        <section className="section">
           <div className="cta-band">
             <h3>Ready to Begin?</h3>
             <p>Get your AI risk profile in under 2 minutes. No commitment.</p>
-            <Link to={ctaTarget}>
-              <button className="btn-primary" type="button">{ctaLabel}</button>
+            <Link to="/signup">
+              <button className="btn-primary" type="button">Get Started Free</button>
             </Link>
           </div>
-        </ScrollReveal>
-      </section>
+        </section>
+      )}
 
       <footer className="home-footer">
         <p>AIPRS — Final Year Project. For research and educational demonstration only.</p>

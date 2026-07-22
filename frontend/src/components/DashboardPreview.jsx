@@ -1,8 +1,6 @@
 export default function DashboardPreview() {
   return (
     <div className="dash-preview">
-      <div className="dash-preview-glow" />
-
       <div className="dash-preview-card dash-preview-main">
         <div className="dash-preview-header">
           <span className="dash-preview-dot" />
