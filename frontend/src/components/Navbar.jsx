@@ -7,6 +7,7 @@ import { logout } from "../api";
 const NAV_LINKS = [
   { label: "Dashboard", path: "/dashboard" },
   { label: "AI Recommendations", path: "/recommendations" },
+  { label: "Market", path: "/market" },
   { label: "Settings", path: "/settings" },
 ];
 

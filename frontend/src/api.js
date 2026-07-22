@@ -68,6 +68,28 @@ export function getRecommendations() {
   return request("/recommendations");
 }
 
+export function getMarketStatus(market) {
+  return request(`/market/status?market=${market}`);
+}
+
+export function getMarketQuotes(symbols, crypto = false) {
+  return request(`/market/quotes?symbols=${encodeURIComponent(symbols.join(","))}&crypto=${crypto}`);
+}
+
+export function getMarketCandles(symbol, timeframe, limit, crypto = false) {
+  return request(
+    `/market/candles?symbol=${encodeURIComponent(symbol)}&timeframe=${timeframe}&limit=${limit}&crypto=${crypto}`
+  );
+}
+
+export function getPsxQuotes(symbols) {
+  return request(`/market/psx/quotes?symbols=${encodeURIComponent(symbols.join(","))}`);
+}
+
+export function getPsxCandles(symbol, limit) {
+  return request(`/market/psx/candles?symbol=${encodeURIComponent(symbol)}&limit=${limit}`);
+}
+
 export function saveHoldings(holdingsText) {
   return request("/users/me/holdings", {
     method: "PUT",
