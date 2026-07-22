@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { me, signup } from "../api";
+import Select from "../components/Select";
+import NumberInput from "../components/NumberInput";
 
 const INCOME_RANGES = ["< 25,000", "25,000 - 50,000", "50,000 - 100,000", "100,000+"];
 const HORIZONS = ["1 Year", "3-5 Years", "5-10 Years", "10+ Years"];
@@ -125,41 +127,19 @@ export default function Signup({ onLogin }) {
 
             <h3>2. Financial Profile</h3>
             <label>Age</label>
-            <input
-              type="number"
-              min={18}
-              max={100}
-              value={age}
-              onChange={(e) => setAge(e.target.value)}
-            />
+            <NumberInput value={age} onChange={setAge} min={18} max={100} />
             <label>Annual Income Range</label>
-            <select value={incomeRange} onChange={(e) => setIncomeRange(e.target.value)}>
-              {INCOME_RANGES.map((r) => (
-                <option key={r} value={r}>{r}</option>
-              ))}
-            </select>
+            <Select value={incomeRange} onChange={setIncomeRange} options={INCOME_RANGES} />
             <label>Investment Horizon</label>
-            <select value={horizon} onChange={(e) => setHorizon(e.target.value)}>
-              {HORIZONS.map((h) => (
-                <option key={h} value={h}>{h}</option>
-              ))}
-            </select>
+            <Select value={horizon} onChange={setHorizon} options={HORIZONS} />
             <label>Investment Experience</label>
-            <select value={experience} onChange={(e) => setExperience(e.target.value)}>
-              {EXPERIENCES.map((x) => (
-                <option key={x} value={x}>{x}</option>
-              ))}
-            </select>
+            <Select value={experience} onChange={setExperience} options={EXPERIENCES} />
           </div>
 
           <div className="signup-col">
             <h3>3. Goals & Preferences</h3>
             <label>Primary Goal</label>
-            <select value={goals} onChange={(e) => setGoals(e.target.value)}>
-              {GOALS.map((g) => (
-                <option key={g} value={g}>{g}</option>
-              ))}
-            </select>
+            <Select value={goals} onChange={setGoals} options={GOALS} />
             <label>Preferred Assets (Optional)</label>
             <div className="checkbox-grid">
               {PREFERENCES.map((p) => (

@@ -91,14 +91,72 @@ body {
   font-weight: 600;
 }
 
-select {
+.custom-select {
+  position: relative;
+  margin-top: 4px;
+}
+
+.custom-select-trigger {
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
   padding: 8px 10px;
   color: var(--text);
-  margin-top: 4px;
+  font-size: 14px;
+  font-weight: 400;
+  margin-top: 0;
+  text-align: left;
+  cursor: pointer;
+}
+
+.custom-select-trigger svg {
+  color: var(--muted);
+  flex-shrink: 0;
+  margin-left: 8px;
+  transition: transform 0.15s ease;
+}
+
+.custom-select-trigger.open svg {
+  transform: rotate(180deg);
+}
+
+.custom-select-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 20;
+  margin: 0;
+  padding: 4px;
+  list-style: none;
+  background: #1a1400;
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.custom-select-option {
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.custom-select-option:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.custom-select-option.selected {
+  background: rgba(245, 158, 11, 0.15);
+  color: var(--secondary);
+  font-weight: 600;
 }
 
 input[type="range"] {
@@ -129,6 +187,50 @@ input[type="range"] {
 
 .agree-label {
   margin-top: 16px;
+}
+
+.number-input {
+  position: relative;
+  margin-top: 4px;
+}
+
+.number-input input {
+  margin-top: 0;
+  padding-right: 34px;
+  -moz-appearance: textfield;
+}
+
+.number-input input::-webkit-outer-spin-button,
+.number-input input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.number-input-steppers {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  right: 4px;
+  display: flex;
+  flex-direction: column;
+  width: 22px;
+}
+
+.number-input-steppers button {
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: var(--secondary);
+  cursor: pointer;
+}
+
+.number-input-steppers button:hover {
+  color: var(--primary);
 }
 
 .subtitle {
