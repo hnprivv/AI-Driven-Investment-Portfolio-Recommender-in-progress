@@ -28,6 +28,13 @@ COPY backend/requirements.txt backend/requirements.txt
 RUN pip install --no-cache-dir --extra-index-url https://download.pytorch.org/whl/cpu \
     -r backend/requirements.txt
 
+# kaleido >=1.0 no longer bundles a Chromium binary (unlike the 0.2.x series
+# the apt packages above were originally chosen for) — it launches a
+# separately-downloaded Chrome instead. On a dev machine that already has
+# Chrome/Edge installed, kaleido finds it automatically; a fresh container
+# has neither, so this step is required or PDF report generation fails.
+RUN plotly_get_chrome -y
+
 # Only what the backend actually reads at runtime.
 COPY backend/ backend/
 COPY modules/ modules/
