@@ -10,25 +10,19 @@ FROM python:3.13-slim
 # inside the image early in the build (to resolve LFS-tracked files such as
 # the PPO model weights and PNGs) — without these, the build fails before
 # it even reaches our own steps below.
-# The rest are system libraries required by kaleido (headless Chromium,
-# used to render Plotly charts into the PDF report) and by common ML wheels.
 RUN apt-get update && apt-get install -y --no-install-recommends \
     git git-lfs \
     wget ca-certificates \
-    libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libgbm1 \
-    libasound2 libxcomposite1 libxdamage1 libxfixes3 libxrandr2 \
-    libxkbcommon0 libpango-1.0-0 libpangocairo-1.0-0 fonts-liberation \
-    libx11-xcb1 libxext6 libxi6 libxtst6 \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /repo
 
 # Install Python deps first so this layer is cached across code-only changes.
-# kaleido is pinned to 0.2.1 in requirements.txt — the last version with a
-# self-contained bundled Chromium binary (matching the apt packages above),
-# rather than kaleido >=1.0's separately-downloaded full Chrome, which
-# proved too heavy alongside the PyTorch models already loaded in this
-# container and OOM-crashed the Space.
+# PDF report charts are rendered with matplotlib, not plotly+kaleido — a
+# headless-Chromium subprocess crashed this Space when run alongside the
+# already-loaded PyTorch/FinBERT models (tried kaleido>=1.0's downloaded
+# Chrome, then reverted to 0.2.1's bundled one; both crashed it). matplotlib
+# needs no browser/subprocess and has a much smaller memory footprint.
 COPY backend/requirements.txt backend/requirements.txt
 RUN pip install --no-cache-dir --extra-index-url https://download.pytorch.org/whl/cpu \
     -r backend/requirements.txt

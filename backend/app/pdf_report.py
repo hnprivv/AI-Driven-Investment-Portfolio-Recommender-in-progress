@@ -1,9 +1,51 @@
 import datetime
 import io as _io
 
-import pandas as pd
-import plotly.express as px
+import matplotlib
+
+matplotlib.use("Agg")  # headless backend — no display server, safe in a container
+import matplotlib.pyplot as plt
 from fpdf import FPDF
+
+
+def _render_curve_png(curve: list[dict]) -> bytes:
+    dates = [datetime.date.fromisoformat(p["date"][:10]) for p in curve]
+    values = [p["value"] for p in curve]
+
+    fig, ax = plt.subplots(figsize=(9, 3.5), dpi=200)
+    fig.patch.set_facecolor("#FFFFFF")
+    ax.set_facecolor("#FFFFFF")
+    ax.plot(dates, values, color="#F59E0B", linewidth=1.8)
+    ax.axhline(y=1.0, color="black", alpha=0.3, linestyle=":", linewidth=1)
+    ax.grid(color="black", alpha=0.08)
+    for spine in ax.spines.values():
+        spine.set_color((0, 0, 0, 0.2))
+    ax.tick_params(colors="#111111", labelsize=8)
+    fig.tight_layout()
+
+    buf = _io.BytesIO()
+    fig.savefig(buf, format="png")
+    plt.close(fig)
+    return buf.getvalue()
+
+
+def _render_allocation_png(holdings_by_category: dict) -> bytes:
+    colors = ["#F59E0B", "#FCD34D", "#B45309", "#78350F"]
+
+    fig, ax = plt.subplots(figsize=(6, 4), dpi=200)
+    fig.patch.set_facecolor("#FFFFFF")
+    ax.pie(
+        list(holdings_by_category.values()),
+        labels=list(holdings_by_category.keys()),
+        colors=colors,
+        textprops={"color": "#111111"},
+    )
+    fig.tight_layout()
+
+    buf = _io.BytesIO()
+    fig.savefig(buf, format="png")
+    plt.close(fig)
+    return buf.getvalue()
 
 
 def generate_pdf_report(username: str, user: dict, overview: dict) -> bytes:
@@ -15,42 +57,8 @@ def generate_pdf_report(username: str, user: dict, overview: dict) -> bytes:
     holdings_by_category = overview["holdings_by_category"]
     holdings = overview["holdings"]
 
-    # Equity curve chart image
-    curve_img_bytes = None
-    if curve:
-        _curve_df = pd.DataFrame({
-            "Date": pd.to_datetime([p["date"] for p in curve]),
-            "Portfolio Value": [p["value"] for p in curve],
-        })
-        _fig_c = px.line(
-            _curve_df, x="Date", y="Portfolio Value",
-            template="plotly_white", color_discrete_sequence=["#F59E0B"],
-        )
-        _fig_c.add_hline(y=1.0, line_dash="dot", line_color="rgba(0,0,0,0.3)")
-        _fig_c.update_layout(
-            paper_bgcolor="#FFFFFF", plot_bgcolor="#FFFFFF",
-            font=dict(color="#111111", family="Arial"),
-            margin=dict(l=40, r=20, t=20, b=40),
-            xaxis=dict(gridcolor="rgba(0,0,0,0.08)", linecolor="rgba(0,0,0,0.2)"),
-            yaxis=dict(gridcolor="rgba(0,0,0,0.08)", linecolor="rgba(0,0,0,0.2)"),
-        )
-        curve_img_bytes = _fig_c.to_image(format="png", width=900, height=350, scale=2)
-
-    # Allocation pie chart image — only built if the user has holdings to break down
-    alloc_img_bytes = None
-    if holdings_by_category:
-        _fig_a = px.pie(
-            values=list(holdings_by_category.values()),
-            names=list(holdings_by_category.keys()),
-            color_discrete_sequence=["#F59E0B", "#FCD34D", "#B45309", "#78350F"],
-        )
-        _fig_a.update_layout(
-            paper_bgcolor="#FFFFFF",
-            font=dict(color="#111111", family="Arial"),
-            legend=dict(font=dict(color="#111111")),
-            margin=dict(l=20, r=20, t=20, b=20),
-        )
-        alloc_img_bytes = _fig_a.to_image(format="png", width=600, height=400, scale=2)
+    curve_img_bytes = _render_curve_png(curve) if curve else None
+    alloc_img_bytes = _render_allocation_png(holdings_by_category) if holdings_by_category else None
 
     # Build PDF
     pdf = FPDF()

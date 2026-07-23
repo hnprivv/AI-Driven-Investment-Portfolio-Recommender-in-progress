@@ -9,8 +9,7 @@ joblib
 pandas
 scipy
 scikit-learn
-plotly
-kaleido==0.2.1
+matplotlib
 fpdf2
 yfinance
 torch
