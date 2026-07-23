@@ -1,8 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 
-export default function Select({ value, onChange, options }) {
+// options may be an array of strings, or an array of { value, label } objects
+// for cases where the displayed text differs from the underlying value.
+export default function Select({ value, onChange, options, placeholder }) {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
+
+  const normalized = options.map((o) =>
+    typeof o === "object" ? o : { value: o, label: o }
+  );
+  const current = normalized.find((o) => o.value === value);
 
   useEffect(() => {
     function handleClickOutside(e) {
@@ -15,7 +22,7 @@ export default function Select({ value, onChange, options }) {
   }, []);
 
   function handleSelect(option) {
-    onChange(option);
+    onChange(option.value);
     setOpen(false);
   }
 
@@ -26,7 +33,9 @@ export default function Select({ value, onChange, options }) {
         className={`custom-select-trigger ${open ? "open" : ""}`}
         onClick={() => setOpen((v) => !v)}
       >
-        <span>{value}</span>
+        <span className={!current && placeholder ? "custom-select-placeholder" : ""}>
+          {current ? current.label : placeholder || value}
+        </span>
         <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
           <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" strokeWidth="1.5" />
         </svg>
@@ -34,13 +43,13 @@ export default function Select({ value, onChange, options }) {
 
       {open && (
         <ul className="custom-select-menu">
-          {options.map((option) => (
+          {normalized.map((option) => (
             <li
-              key={option}
-              className={`custom-select-option ${option === value ? "selected" : ""}`}
+              key={option.value}
+              className={`custom-select-option ${option.value === value ? "selected" : ""}`}
               onClick={() => handleSelect(option)}
             >
-              {option}
+              {option.label}
             </li>
           ))}
         </ul>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import CandlestickChart from "../components/CandlestickChart";
+import Select from "../components/Select";
 import { getPsxCandles, getPsxQuotes } from "../api";
 
 const PSX_BLUE_CHIPS = ["HBL", "ENGRO", "LUCK", "MCB", "PPL", "OGDC"];
@@ -64,12 +65,12 @@ export default function PsxMarketPanel({ refreshKey }) {
 
       <div className="market-controls">
         <div className="market-control">
-          <label htmlFor="psx-symbol-select">Select PSX Stock</label>
-          <select id="psx-symbol-select" value={selectedSymbol} onChange={(e) => setSelectedSymbol(e.target.value)}>
-            {Object.keys(PSX_STOCKS).map((sym) => (
-              <option key={sym} value={sym}>{sym} – {PSX_STOCKS[sym]}</option>
-            ))}
-          </select>
+          <label>Select PSX Stock</label>
+          <Select
+            value={selectedSymbol}
+            onChange={setSelectedSymbol}
+            options={Object.keys(PSX_STOCKS).map((sym) => ({ value: sym, label: `${sym} – ${PSX_STOCKS[sym]}` }))}
+          />
         </div>
         <div className="market-control">
           <label htmlFor="psx-bars-range">Bars: {limit}</label>

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { submitFeedback, submitSurvey } from "../api";
+import Select from "../components/Select";
 import "./Feedback.css";
 
 const PAGES = ["General System", "Home", "User Form", "Overview", "AI Recommendations", "Other"];
@@ -77,12 +78,8 @@ function QuickFeedbackForm() {
 
       <div className="field-row">
         <div>
-          <label className="field-label" htmlFor="fb-page">Related page (optional)</label>
-          <select id="fb-page" value={page} onChange={(e) => setPage(e.target.value)}>
-            {PAGES.map((p) => (
-              <option key={p} value={p}>{p}</option>
-            ))}
-          </select>
+          <label className="field-label">Related page (optional)</label>
+          <Select value={page} onChange={setPage} options={PAGES} />
         </div>
         <div>
           <label className="field-label" htmlFor="fb-contact">Email / contact (optional)</label>

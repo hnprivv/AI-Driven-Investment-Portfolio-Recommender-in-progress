@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import CandlestickChart from "../components/CandlestickChart";
+import Select from "../components/Select";
 import { getMarketCandles, getMarketQuotes } from "../api";
 
 const TIMEFRAME_OPTIONS_FULL = [
@@ -148,20 +149,16 @@ export default function UsMarketPanel({ refreshKey }) {
 
       <div className="market-controls">
         <div className="market-control">
-          <label htmlFor="symbol-select">Select {category === "Cryptocurrency" ? "Pair" : "Ticker"}</label>
-          <select id="symbol-select" value={selectedSymbol} onChange={(e) => setSelectedSymbol(e.target.value)}>
-            {symbolKeys.map((sym) => (
-              <option key={sym} value={sym}>{sym} – {cfg.symbols[sym]}</option>
-            ))}
-          </select>
+          <label>Select {category === "Cryptocurrency" ? "Pair" : "Ticker"}</label>
+          <Select
+            value={selectedSymbol}
+            onChange={setSelectedSymbol}
+            options={symbolKeys.map((sym) => ({ value: sym, label: `${sym} – ${cfg.symbols[sym]}` }))}
+          />
         </div>
         <div className="market-control">
-          <label htmlFor="timeframe-select">Timeframe</label>
-          <select id="timeframe-select" value={timeframe} onChange={(e) => setTimeframe(e.target.value)}>
-            {cfg.timeframes.map((tf) => (
-              <option key={tf.value} value={tf.value}>{tf.label}</option>
-            ))}
-          </select>
+          <label>Timeframe</label>
+          <Select value={timeframe} onChange={setTimeframe} options={cfg.timeframes} />
         </div>
         <div className="market-control">
           <label htmlFor="bars-range">Bars: {limit}</label>
