@@ -16,6 +16,8 @@ app_port: 7860
 
 # AIPRS – AI-Powered Portfolio Recommendation System
 
+![Status](https://img.shields.io/badge/status-in%20progress-yellow)
+
 **AIPRS** is an intelligent investment companion built as a Final Year Project. It profiles investors using machine learning, recommends optimised portfolio allocations, delivers live and delayed market data across two exchanges, analyses financial news sentiment, and provides reinforcement learning-based trading signals — all through a Streamlit dashboard.
 
 ---
