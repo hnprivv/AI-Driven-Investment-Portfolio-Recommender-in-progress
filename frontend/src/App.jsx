@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { clearToken, me } from "./api";
 import Layout from "./components/Layout";
 import ScrollToTop from "./components/ScrollToTop";
+import ToastContainer from "./components/Toast";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -38,6 +39,7 @@ export default function App() {
   return (
     <>
       <ScrollToTop />
+      <ToastContainer />
       <Routes>
         <Route path="/" element={<Home user={user} onLogout={handleLogout} />} />
         <Route path="/updates" element={<Updates user={user} onLogout={handleLogout} />} />

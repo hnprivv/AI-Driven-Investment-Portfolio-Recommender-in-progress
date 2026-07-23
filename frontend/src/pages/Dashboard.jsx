@@ -8,6 +8,7 @@ import {
   getPortfolioOverview,
   saveHoldings,
 } from "../api";
+import { showToast } from "../components/Toast";
 import "./Dashboard.css";
 
 const BEHAVIORS = {
@@ -121,6 +122,15 @@ export default function Dashboard() {
     }
   }
 
+  async function handleDownloadReport() {
+    showToast("Generating your PDF report — it'll download automatically.", { type: "info" });
+    try {
+      await downloadReportPdf();
+    } catch (err) {
+      showToast(err.message, { type: "error" });
+    }
+  }
+
   if (error) {
     return (
       <div className="dashboard">
@@ -178,7 +188,7 @@ export default function Dashboard() {
             <button
               type="button"
               className="pdf-download-btn"
-              onClick={() => downloadReportPdf().catch((err) => alert(err.message))}
+              onClick={handleDownloadReport}
             >
               ⬇ Download PDF
             </button>
