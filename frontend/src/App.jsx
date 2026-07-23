@@ -59,13 +59,24 @@ export default function App() {
               user={user}
               onLogout={handleLogout}
               onUserUpdate={(updates) => setUser((u) => ({ ...u, ...updates }))}
+              requireAuth={false}
+            />
+          }
+        >
+          <Route path="/market" element={<MarketOverview />} />
+          <Route path="/news" element={<NewsSentiment />} />
+        </Route>
+        <Route
+          element={
+            <Layout
+              user={user}
+              onLogout={handleLogout}
+              onUserUpdate={(updates) => setUser((u) => ({ ...u, ...updates }))}
             />
           }
         >
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/recommendations" element={<Recommendations />} />
-          <Route path="/market" element={<MarketOverview />} />
-          <Route path="/news" element={<NewsSentiment />} />
           <Route path="/feedback" element={<Feedback />} />
           <Route path="/profile" element={<EditProfile />} />
           <Route path="/settings" element={<Settings />} />

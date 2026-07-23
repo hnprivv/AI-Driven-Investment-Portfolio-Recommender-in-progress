@@ -6,11 +6,13 @@ import { LATEST_UPDATE_ID } from "../updatesLog";
 
 // One-line addition per future page — Overview, Recommendations, Market,
 // PPO Advisors, News, etc. just get appended here as they're built.
+// guestOk links stay visible (and reachable) for logged-out visitors too —
+// their routes don't require auth, unlike the rest.
 const NAV_LINKS = [
   { label: "Dashboard", path: "/dashboard" },
   { label: "AI Recommendations", path: "/recommendations" },
-  { label: "Market", path: "/market" },
-  { label: "News", path: "/news" },
+  { label: "Market", path: "/market", guestOk: true },
+  { label: "News", path: "/news", guestOk: true },
   { label: "Update Log", path: "/updates" },
   { label: "Feedback", path: "/feedback" },
 ];
@@ -104,6 +106,32 @@ export default function Navbar({ user, onLogout, minimal = false }) {
     );
   }
 
+  if (!user) {
+    return (
+      <header className="navbar">
+        <div className="navbar-inner navbar-inner-guest">
+          <Link to="/" className="navbar-brand">
+            <img src={aiprsLogo} alt="" width="28" height="28" className="navbar-logo" />
+            AIPRS
+          </Link>
+          <nav className="navbar-links">
+            {NAV_LINKS.filter((link) => link.guestOk).map((link) => (
+              <NavLink
+                key={link.path}
+                to={link.path}
+                className={({ isActive }) =>
+                  "navbar-link" + (isActive ? " active" : "")
+                }
+              >
+                {link.label}
+              </NavLink>
+            ))}
+          </nav>
+        </div>
+      </header>
+    );
+  }
+
   return (
     <header className="navbar">
       <div className="navbar-inner">
@@ -113,39 +141,26 @@ export default function Navbar({ user, onLogout, minimal = false }) {
         </Link>
 
         <div className={`navbar-menu ${menuOpen ? "open" : ""}`}>
-          {user && (
-            <nav className="navbar-links">
-              {NAV_LINKS.map((link) => (
-                <NavLink
-                  key={link.path}
-                  to={link.path}
-                  className={({ isActive }) =>
-                    "navbar-link" + (isActive ? " active" : "")
-                  }
-                  onClick={() => setMenuOpen(false)}
-                >
-                  {link.label}
-                  {link.path === "/updates" && hasNewUpdate && (
-                    <span className="navbar-link-dot" aria-label="New update" />
-                  )}
-                </NavLink>
-              ))}
-            </nav>
-          )}
+          <nav className="navbar-links">
+            {NAV_LINKS.map((link) => (
+              <NavLink
+                key={link.path}
+                to={link.path}
+                className={({ isActive }) =>
+                  "navbar-link" + (isActive ? " active" : "")
+                }
+                onClick={() => setMenuOpen(false)}
+              >
+                {link.label}
+                {link.path === "/updates" && hasNewUpdate && (
+                  <span className="navbar-link-dot" aria-label="New update" />
+                )}
+              </NavLink>
+            ))}
+          </nav>
 
           <div className="navbar-user">
-            {user ? (
-              <UserMenu user={user} onLogout={onLogout} />
-            ) : (
-              <>
-                <Link to="/login" className="navbar-login-link" onClick={() => setMenuOpen(false)}>
-                  Log In
-                </Link>
-                <Link to="/signup" onClick={() => setMenuOpen(false)}>
-                  <button className="navbar-signup-btn" type="button">Sign Up</button>
-                </Link>
-              </>
-            )}
+            <UserMenu user={user} onLogout={onLogout} />
           </div>
         </div>
 

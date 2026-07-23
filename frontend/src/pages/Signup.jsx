@@ -234,6 +234,9 @@ export default function Signup({ onLogin }) {
         <p className="subtitle switch-auth">
           Already have an account? <Link to="/login">Log in</Link>
         </p>
+        <p className="subtitle switch-auth">
+          <Link to="/">Continue as Guest</Link>
+        </p>
       </form>
     </div>
     <Footer />

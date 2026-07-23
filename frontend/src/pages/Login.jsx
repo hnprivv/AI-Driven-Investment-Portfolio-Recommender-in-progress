@@ -57,6 +57,9 @@ export default function Login({ onLogin }) {
         <p className="subtitle switch-auth">
           Don't have an account? <Link to="/signup">Sign up</Link>
         </p>
+        <p className="subtitle switch-auth">
+          <Link to="/">Continue as Guest</Link>
+        </p>
       </form>
     </div>
     <Footer />

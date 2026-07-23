@@ -452,6 +452,14 @@ button:disabled {
   justify-content: center;
 }
 
+.navbar-inner-guest {
+  justify-content: center;
+}
+
+.navbar-inner-guest .navbar-links {
+  flex: none;
+}
+
 .navbar-brand {
   display: flex;
   align-items: center;

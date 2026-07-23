@@ -49,7 +49,7 @@ const STEPS = [
 export default function Home({ user, onLogout }) {
   return (
     <div className="home-page">
-      <Navbar user={user} onLogout={onLogout} minimal={!user} />
+      <Navbar user={user} onLogout={onLogout} />
 
       <section className="hero">
         <div className="hero-inner">
