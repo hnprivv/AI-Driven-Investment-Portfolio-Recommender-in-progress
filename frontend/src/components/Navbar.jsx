@@ -13,7 +13,7 @@ const NAV_LINKS = [
   { label: "AI Recommendations", path: "/recommendations" },
   { label: "Market", path: "/market", guestOk: true },
   { label: "News", path: "/news", guestOk: true },
-  { label: "Update Log", path: "/updates" },
+  { label: "Update Log", path: "/updates", guestOk: true },
   { label: "Feedback", path: "/feedback" },
 ];
 
