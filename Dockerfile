@@ -6,9 +6,14 @@
 
 FROM python:3.13-slim
 
-# System libraries required by kaleido (headless Chromium, used to render
-# Plotly charts into the PDF report) and by common ML wheels.
+# git + git-lfs: Hugging Face Spaces' build platform runs git commands
+# inside the image early in the build (to resolve LFS-tracked files such as
+# the PPO model weights and PNGs) — without these, the build fails before
+# it even reaches our own steps below.
+# The rest are system libraries required by kaleido (headless Chromium,
+# used to render Plotly charts into the PDF report) and by common ML wheels.
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    git git-lfs \
     wget ca-certificates \
     libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libgbm1 \
     libasound2 libxcomposite1 libxdamage1 libxfixes3 libxrandr2 \
